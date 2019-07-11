@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 // Se connecter à la base de données
-mongoose.connect("mongodb://localhost:27017/product-catalog", {
-  useNewUrlParser: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost:27017/product-catalog",
+  {
+    useNewUrlParser: true
+  }
+);
 
 // Créer les models
 const Department = mongoose.model("Department", {
@@ -94,6 +97,6 @@ app.post("/department/delete", async (req, res) => {
 });
 
 // Démarrer le serveur
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server started");
 });
